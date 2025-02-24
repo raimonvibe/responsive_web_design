@@ -5,96 +5,97 @@
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-<head>
-  <meta charset="utf-8">
-  <title>Responsive Web Design</title>
-  <script type="text/javascript" charset="UTF-8" src="https://cdn.cookie-script.com/s/bc6138fbc116438ba4c0b26d11e59b5f.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-  <link rel="icon" href="/favicon.ico">
-  <link rel="canonical" href="https://raimonvibe.com/">
-  <link rel="alternate" hreflang="en" href="https://raimonvibe.com">
-  <meta name="description" content="Discover custom-made digital artworks with Raimon, your freelance web designer and developer from West Friesland. Specialist in responsive design and master of HTML, CSS, and JavaScript. Experience a seamless digital experience, optimized for every screen - from the palm of your hand to the wide view of your desktop.">
-  <meta name="keywords" content="freelance web designer, web developer, responsive web design, HTML, CSS, JavaScript, digital art, Raimon, custom websites, Netherlands, West Friesland">
-  
-  <link rel="stylesheet" href="assets/css/main.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <script src="https://kit.fontawesome.com/8bcca0b4ed.js" crossorigin="anonymous"></script>
-  <noscript>
-    <link rel="stylesheet" href="assets/css/noscript.css">
-  </noscript>
-  
-  <script>
-    function sendEmail(event) {
-      event.preventDefault(); // Voorkomt het standaard verzenden van het formulier
-      var senderEmail = document.getElementById("email").value;
-      var recipientEmail = "info@raimonvibe.com";
-      var subject = "Message from " + senderEmail;
-      var body = "";
-      
-      if (!senderEmail) {
-        alert("Please enter your email address.");
-        return;
-      }
-      
-      window.location.href = "mailto:" + recipientEmail + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-    }
-  </script>
-  
-  <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="RaimonVibe - Responsive Web Design">
-  <meta property="og:description" content="Expert in responsive web design, creating fast, mobile-friendly, and user-centric websites.">
-  <meta property="og:image" content="https://raimonvibe.com/images/Raimon1.jpg">
-  <meta property="og:url" content="https://www.raimonvibe.com/">
-  <meta property="og:type" content="website">
-  <meta property="og:site_name" content="RaimonVibe">
-  <meta property="og:image:width" content="1157">
-  <meta property="og:image:height" content="928">
+	<head>
+		<meta charset="utf-8">
+		<title>Responsive Web Design</title>
+		<script type="text/javascript" charset="UTF-8" src="https://cdn.cookie-script.com/s/bc6138fbc116438ba4c0b26d11e59b5f.js"></script>
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+		<link rel="icon" href="/favicon.ico">
+		<link rel="canonical" href="https://raimonvibe.com/">
+		<link rel="alternate" hreflang="en" href="https://raimonvibe.com">
+		<meta name="description" content="Discover custom-made digital artworks with Raimon, your freelance web designer and developer from West Friesland. Specialist in responsive design and master of HTML, CSS, and JavaScript. Experience a seamless digital experience, optimized for every screen - from the palm of your hand to the wide view of your desktop.">
+		<meta name="keywords" content="freelance web designer, web developer, responsive web design, HTML, CSS, JavaScript, digital art, Raimon, custom websites, Netherlands, West Friesland">
+		
+		<link rel="stylesheet" href="assets/css/main.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+		<script src="https://kit.fontawesome.com/8bcca0b4ed.js" crossorigin="anonymous"></script>
+		<noscript>
+		  <link rel="stylesheet" href="assets/css/noscript.css">
+		</noscript>
+		
+		<script>
+		  function sendEmail(event) {
+			event.preventDefault(); // Voorkomt het standaard verzenden van het formulier
+			var senderEmail = document.getElementById("email").value;
+			var recipientEmail = "info@raimonvibe.com";
+			var subject = "Message from " + senderEmail;
+			var body = "";
+			
+			if (!senderEmail) {
+			  alert("Please enter your email address.");
+			  return;
+			}
+			
+			window.location.href = "mailto:" + recipientEmail + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+		  }
+		</script>
+		
+		<!-- Open Graph Meta Tags -->
+		<meta property="og:title" content="RaimonVibe - Responsive Web Design">
+		<meta property="og:description" content="Expert in responsive web design, creating fast, mobile-friendly, and user-centric websites.">
+		<meta property="og:image" content="https://raimonvibe.com/images/Raimon1.jpg">
+		<meta property="og:url" content="https://www.raimonvibe.com/">
+		<meta property="og:type" content="website">
+		<meta property="og:site_name" content="RaimonVibe">
+		<meta property="og:image:width" content="1157">
+		<meta property="og:image:height" content="928">
 
-  <!-- Twitter Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="RaimonVibe - Responsive Web Design">
-  <meta name="twitter:description" content="Building responsive and optimized websites that adapt seamlessly across all devices.">
-  <meta name="twitter:image" content="https://raimonvibe.com/images/Raimon1.jpg">
-  <meta name="twitter:site" content="@raimonvibe">  
-  <script id="heap-analytics">
-    (window.heap = window.heap || []),
-    (heap.load = function(e, t) {
-      window.heap.appid = e;
-      window.heap.config = t = t || {};
-      var r = document.createElement("script");
-      r.type = "text/javascript";
-      r.async = true;
-      r.src = "https://cdn.heapanalytics.com/js/heap-" + e + ".js";
-      var a = document.getElementsByTagName("script")[0];
-      a.parentNode.insertBefore(r, a);
-      for (
-        var n = function(e) {
-          return function() {
-            heap.push([e].concat(Array.prototype.slice.call(arguments, 0)));
-          };
-        },
-        p = [
-          "addEventProperties",
-          "addUserProperties",
-          "clearEventProperties",
-          "identify",
-          "resetIdentity",
-          "removeEventProperty",
-          "setEventProperties",
-          "track",
-          "unsetEventProperty"
-        ],
-        o = 0;
-        o < p.length;
-        o++
-      ) {
-        heap[p[o]] = n(p[o]);
-      }
-    });
-    heap.load("2918829767");
-  </script>
-</head>
-
+		<!-- Twitter Meta Tags -->
+		<meta name="twitter:card" content="summary_large_image">
+		<meta name="twitter:title" content="RaimonVibe - Responsive Web Design">
+		<meta name="twitter:description" content="Building responsive and optimized websites that adapt seamlessly across all devices.">
+		<meta name="twitter:image" content="https://raimonvibe.com/images/Raimon1.jpg">
+		<meta name="twitter:site" content="@raimonvibe">
+		
+		<script id="heap-analytics">
+		  (window.heap = window.heap || []),
+		  (heap.load = function(e, t) {
+			window.heap.appid = e;
+			window.heap.config = t = t || {};
+			var r = document.createElement("script");
+			r.type = "text/javascript";
+			r.async = true;
+			r.src = "https://cdn.heapanalytics.com/js/heap-" + e + ".js";
+			var a = document.getElementsByTagName("script")[0];
+			a.parentNode.insertBefore(r, a);
+			for (
+			  var n = function(e) {
+				return function() {
+				  heap.push([e].concat(Array.prototype.slice.call(arguments, 0)));
+				};
+			  },
+			  p = [
+				"addEventProperties",
+				"addUserProperties",
+				"clearEventProperties",
+				"identify",
+				"resetIdentity",
+				"removeEventProperty",
+				"setEventProperties",
+				"track",
+				"unsetEventProperty"
+			  ],
+			  o = 0;
+			  o < p.length;
+			  o++
+			) {
+			  heap[p[o]] = n(p[o]);
+			}
+		  });
+		  heap.load("2918829767");
+		</script>
+	  </head>
+	  
 	<body class="is-preload">
 
 		<!-- Sidebar -->
@@ -134,7 +135,7 @@
 							<div class="content">
 								<div class="inner">
 									<h2>Websites for businesses</h2>
-									<p>I develop websites for businesses that want to share their services, location and contact details online. My focus is on building efficient and scalable solutions that also look good on mobile. Always looking for ways to improve the visibility of my clients.
+									<p>We develop websites for businesses that want to share their services, location and contact details online. Our focus is on building efficient and scalable solutions that also look good on mobile. Always looking for ways to improve the visibility of my clients.
 									</p>
 									<ul class="actions">
 										<li><a href="/about.html" class="button">Learn more</a></li>
@@ -147,7 +148,7 @@
 							<div class="content">
 								<div class="inner">
 									<h2>Blogs about my Studies</h2>
-									<p>I share in-depth articles about my experiences and learning processes in online coding bootcamps, including project examples and scripts. Additionally, I passionately write about 3D printing, highlighting my unique design process, steps for publication, and my motivation for this innovative technology. </p>
+									<p>We share in-depth articles about our experiences and learning processes in online coding bootcamps, including project examples and scripts. Additionally, We passionately write about 3D printing, highlighting our unique design process, steps for publication, and our motivation for this innovative technology. </p>
 									<ul class="actions">
 										<li><a href="/about.html" class="button">Learn more</a></li>
 									</ul>
@@ -158,8 +159,8 @@
 							<a href="#" class="image"><img src="images/pic03.jpg" alt="" data-position="25% 25%" /></a>
 							<div class="content">
 								<div class="inner">
-									<h2>I'm a Software Engineer</h2>
-									<p>Curious about my code? Check out my <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">GitHub</a> to see various projects come to life!</p>
+									<h2>Software Engineering</h2>
+									<p>Curious about the code we write? Check out our <a href="https://github.com/yourusername" target="_blank" rel="noopener noreferrer">GitHub</a> to see various projects come to life!</p>
 									<ul class="actions">
 										<li><a href="/about.html" class="button">Learn more</a></li>
 									</ul>
@@ -172,12 +173,12 @@
 					<section id="two" class="wrapper style3 fade-up">
 						<div class="inner">
 							<h2>What we do</h2>
-							<p>I create user friendly, responsive landing pages that work perfectly on all devices. Purchase this service if you want to share your services, location, or contact details online. I provide a professional website that makes your business stand out.</p>
+							<p>We create user friendly, responsive landing pages that work perfectly on all devices. Purchase this service if you want to share your services, location, or contact details online. We provide a professional website that makes your business stand out.</p>
 							<div class="features">
 								<section>
 									<span class="icon solid major fa-code"></span>
 									<h3>Responsive Web Design</h3>
-									<p>I will create landing pages that look good on all devices.</p>
+									<p>We will create landing pages that look good on all devices.</p>
 								</section>
 								<section>
 									<span class="icon solid major fa-lock"></span>
@@ -187,7 +188,7 @@
 								<section>
 									<span class="icon solid major fa-link"></span>
 									<h3>Social Media Icons</h3>
-									<p>I provide a selection of social media icons, enabling my clients to easily link their profiles for a strong online presence.</p>
+									<p>We provide a selection of social media icons, enabling my clients to easily link their profiles for a strong online presence.</p>
 								</section>
 								<section>
 									<span class="icon major fa-gem"></span>
@@ -196,7 +197,7 @@
 								</section>
 							</div>
 							<ul class="actions">
-								<li><a href="/about.html" class="button">Learn more</a></li>
+								<li><a href="about.html" class="button">Learn more</a></li>
 							</ul>
 						</div>
 					</section>
@@ -205,8 +206,8 @@
 <section id="three" class="wrapper style1 fade-up">
     <div class="inner">
         <h2>Get in touch</h2>
-        <p>If you have any questions about the services I offer, please send me a message.
-            I will get back to you as soon as possible.</p>
+        <p>If you have any questions about the services we offer, please send me a message.
+            We will get back to you as soon as possible.</p>
         
         <div class="split style1"> <!-- Zorg ervoor dat deze div goed werkt in je CSS -->
             <!-- Formulier -->
