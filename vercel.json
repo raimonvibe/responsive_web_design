@@ -1,9 +1,8 @@
 {
-    "rewrites": [
-      {
-        "source": "/:page",
-        "destination": "/:page.html"
-      }
-    ]
-  }
-  
+  "redirects": [
+    { "source": "/about", "destination": "/about.html", "permanent": true },
+    { "source": "/privacynotice", "destination": "/privacynotice.html", "permanent": true },
+    { "source": "/legalnotice", "destination": "/legalnotice.html", "permanent": true },
+    { "source": "/elements", "destination": "/elements.html", "permanent": true }
+  ]
+}
