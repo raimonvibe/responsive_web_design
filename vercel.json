@@ -1,0 +1,9 @@
+{
+    "rewrites": [
+      {
+        "source": "/:page",
+        "destination": "/:page.html"
+      }
+    ]
+  }
+  
