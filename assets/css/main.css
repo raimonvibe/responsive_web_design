@@ -86,6 +86,31 @@ input, select, textarea {
 	text-align: center;
   }
   
+  .special_h1 {
+    font-size: 60px;
+    font-weight: bold;
+}
+
+/* Apply gradient only to certain words */
+.gradient-text {
+    background: linear-gradient(to right, #FF6B6B, #FFA94D, #FFD166);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.special_p {
+    font-size: 18px;
+    color: white;
+}
+
+/* Apply the gradient effect to specific words in the <p> tag */
+.gradient-text-small {
+    background: linear-gradient(to right, #FF6B6B, #FFA94D, #FFD166);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+}
+
 
 /* Basic */
 
