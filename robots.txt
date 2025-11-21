@@ -1,0 +1,15 @@
+# Robots.txt for raimonvibe.com
+# Security: Prevent indexing of sensitive directories
+
+User-agent: *
+Allow: /
+
+# Disallow access to sensitive files and directories
+Disallow: /assets/sass/
+Disallow: /.htaccess
+Disallow: /*.env$
+Disallow: /config/
+
+# Sitemap location
+Sitemap: https://raimonvibe.com/index-sitemap.xml
+Sitemap: https://raimonvibe.com/legalnotice-sitemap.xml

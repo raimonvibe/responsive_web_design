@@ -1,0 +1,5 @@
+Contact: mailto:info@raimonvibe.com
+Preferred-Languages: en, nl
+Canonical: https://raimonvibe.com/.well-known/security.txt
+Policy: https://raimonvibe.com/privacynotice
+Acknowledgments: Thank you for helping keep our website secure!

@@ -1,0 +1,61 @@
+# =============================================================================
+# SECURITY HEADERS
+# =============================================================================
+
+# Force HTTPS redirect
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# HTTP Strict Transport Security (HSTS)
+# Forces browsers to use HTTPS for 1 year
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+
+# Content Security Policy (CSP)
+# Allows required third-party scripts while maintaining security
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.cookie-script.com https://kit.fontawesome.com https://cdn.heapanalytics.com https://www.youtube.com; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com https://fonts.googleapis.com; font-src 'self' https://cdnjs.cloudflare.com https://fonts.gstatic.com data:; img-src 'self' data: https:; frame-src https://www.youtube.com https://formspree.io; connect-src 'self' https://cdn.heapanalytics.com https://formspree.io; object-src 'none'; base-uri 'self'; form-action 'self' https://formspree.io;"
+
+# Prevent MIME type sniffing
+Header always set X-Content-Type-Options "nosniff"
+
+# Prevent clickjacking attacks
+Header always set X-Frame-Options "SAMEORIGIN"
+
+# Control referrer information
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+# Permissions Policy (formerly Feature-Policy)
+# Restrict access to browser features
+Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), accelerometer=(), gyroscope=()"
+
+# XSS Protection (legacy but still useful for older browsers)
+Header always set X-XSS-Protection "1; mode=block"
+
+# =============================================================================
+# URL REWRITING
+# =============================================================================
+
+# Redirect requests with .html extension to clean URLs (external redirect)
+RewriteCond %{THE_REQUEST} \s/([^.]+)\.html[\s?] [NC]
+RewriteRule ^ %1 [R=301,L]
+
+# Internally rewrite clean URLs to .html files if they exist
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# =============================================================================
+# ADDITIONAL SECURITY MEASURES
+# =============================================================================
+
+# Disable directory browsing
+Options -Indexes
+
+# Disable server signature
+ServerSignature Off
+
+# Protect sensitive files
+<FilesMatch "^\.">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
