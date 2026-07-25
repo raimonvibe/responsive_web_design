@@ -53,6 +53,8 @@ You can explore the live version here:
 
 ```
 /assets/
+   /css/tour.css   ← guided tour styling
+   /js/tour.js     ← guided tour steps + engine
    /images/        ← ethereal style visuals
 index.html         ← Main home page
 LegalNotice.html   ← Legal page
@@ -62,6 +64,27 @@ LICENSE            ← MIT licence (or other)
 README.md          ← This file
 ...other files
 ```
+
+## Guided Tour
+
+First-time visitors get a spotlight walkthrough of the site: an 11-step journey
+across `index.html` → `about.html` → `casestudy.html`, ending on the contact form.
+A **Tour** button in the bottom-right corner replays it at any time.
+
+* **Editing the steps** – all copy lives in the `ROUTE` array at the top of
+  `assets/js/tour.js`. Each step is `{ target, title, body }`, where `target` is a
+  CSS selector; omit it for a centred step with no spotlight. Smaller pages
+  (elements, legal, privacy) have a single contextual note in `ASIDES`.
+* **Only shown once** – completion is remembered in `localStorage` under
+  `rv-tour-v1-done`; clear that key to see the first-visit behaviour again.
+  Mid-tour position is held in `sessionStorage` so the tour survives page changes.
+* **Responsive** – steps can declare `minWidth` to be skipped on narrow screens
+  (the sidebar step is, since the sidebar is hidden below 737px), and the step
+  count adjusts to match. Below 737px the card docks to the bottom as a sheet.
+* **Accessibility** – `role="dialog"` with a focus trap, arrow keys to move
+  between steps, `Esc` to leave, and `prefers-reduced-motion` is respected.
+* **Cookie banner** – auto-start waits until the CookieScript banner has been
+  answered, so the two never fight over the screen.
 
 ## Customisation Guide
 

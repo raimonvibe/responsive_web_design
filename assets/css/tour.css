@@ -1,0 +1,406 @@
+/*
+	Guided tour — first-visit walkthrough for raimonvibe.com
+	Paired with assets/js/tour.js. Self-contained: no dependency on jQuery or Font Awesome.
+
+	Note: main.css styles every `button` with `!important` borders/colours and an
+	::after overlay, so the rules below reset those explicitly.
+*/
+
+.rv-tour,
+.rv-tour-launcher {
+	--rv-ink: #ffffff;
+	--rv-body: rgba(255, 255, 255, 0.72);
+	--rv-dim: rgba(255, 255, 255, 0.45);
+	--rv-card: #3a2b60;
+	--rv-card-edge: rgba(255, 255, 255, 0.16);
+	--rv-veil: rgba(22, 15, 40, 0.78);
+	--rv-warm-a: #ff6b6b;
+	--rv-warm-b: #ffa94d;
+	--rv-warm-c: #ffd166;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Launcher
+------------------------------------------------------------------ */
+
+.rv-tour-launcher {
+	position: fixed;
+	right: 1.25em;
+	bottom: 1.25em;
+	z-index: 15000;
+	display: flex;
+	align-items: center;
+	gap: 0.55em;
+	padding: 0.85em 1.35em 0.85em 1.15em;
+	border: 1px solid var(--rv-card-edge) !important;
+	border-radius: 3em;
+	background: linear-gradient(135deg, #4a3579, #35264f);
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+	color: var(--rv-ink) !important;
+	cursor: pointer;
+	font-size: 12px;
+	font-weight: bold;
+	letter-spacing: 0.14em;
+	line-height: 1;
+	text-transform: uppercase;
+	height: auto;
+	transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.rv-tour-launcher:after {
+	content: none !important;
+	display: none !important;
+}
+
+.rv-tour-launcher:hover {
+	transform: translateY(-2px);
+	border-color: rgba(255, 209, 102, 0.6) !important;
+	box-shadow: 0 14px 34px rgba(0, 0, 0, 0.5);
+}
+
+.rv-tour-launcher:focus-visible {
+	outline: 2px solid var(--rv-warm-c);
+	outline-offset: 3px;
+}
+
+.rv-tour-launcher svg {
+	width: 1.35em;
+	height: 1.35em;
+	flex: 0 0 auto;
+}
+
+.rv-tour-launcher .rv-tour-launcher__pulse {
+	position: absolute;
+	top: -0.3em;
+	right: -0.3em;
+	width: 0.7em;
+	height: 0.7em;
+	border-radius: 50%;
+	background: var(--rv-warm-b);
+	box-shadow: 0 0 0 0 rgba(255, 169, 77, 0.7);
+	animation: rv-tour-pulse 2.4s ease-out infinite;
+}
+
+@keyframes rv-tour-pulse {
+	0% { box-shadow: 0 0 0 0 rgba(255, 169, 77, 0.65); }
+	70% { box-shadow: 0 0 0 0.9em rgba(255, 169, 77, 0); }
+	100% { box-shadow: 0 0 0 0 rgba(255, 169, 77, 0); }
+}
+
+body.rv-tour-active .rv-tour-launcher {
+	opacity: 0;
+	pointer-events: none;
+}
+
+@media screen and (max-width: 736px) {
+
+	.rv-tour-launcher {
+		right: 0.9em;
+		bottom: 0.9em;
+		padding: 0.8em 1.1em 0.8em 0.95em;
+		font-size: 11px;
+	}
+
+}
+
+/* Overlay
+------------------------------------------------------------------ */
+
+.rv-tour {
+	position: fixed;
+	inset: 0;
+	z-index: 20000;
+	opacity: 0;
+	transition: opacity 0.25s ease;
+}
+
+.rv-tour.is-visible {
+	opacity: 1;
+}
+
+/* Transparent layer that keeps the page itself un-clickable mid-tour. */
+.rv-tour__blocker {
+	position: absolute;
+	inset: 0;
+	cursor: default;
+}
+
+/* Flat dim, used for steps that have no target element. */
+.rv-tour__veil {
+	position: absolute;
+	inset: 0;
+	background: var(--rv-veil);
+	pointer-events: none;
+	opacity: 0;
+	transition: opacity 0.25s ease;
+}
+
+.rv-tour[data-mode="center"] .rv-tour__veil {
+	opacity: 1;
+}
+
+/* Spotlight: the ring is the element, the dim is its box-shadow. */
+.rv-tour__spot {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 0;
+	height: 0;
+	border-radius: 10px;
+	box-shadow: 0 0 0 200vmax var(--rv-veil), inset 0 0 0 1px rgba(255, 255, 255, 0.25);
+	outline: 2px solid rgba(255, 209, 102, 0.8);
+	outline-offset: 3px;
+	pointer-events: none;
+	opacity: 0;
+	transition: top 0.4s cubic-bezier(0.4, 0, 0.2, 1), left 0.4s cubic-bezier(0.4, 0, 0.2, 1), width 0.4s cubic-bezier(0.4, 0, 0.2, 1), height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+}
+
+.rv-tour[data-mode="spot"] .rv-tour__spot {
+	opacity: 1;
+}
+
+/* First placement: jump straight there instead of growing out of the corner. */
+.rv-tour__spot.is-instant {
+	transition: none;
+}
+
+/* Card
+------------------------------------------------------------------ */
+
+.rv-tour__card {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 23em;
+	max-width: calc(100vw - 2.5em);
+	padding: 1.5em 1.6em 1.35em;
+	border: 1px solid var(--rv-card-edge);
+	border-radius: 14px;
+	background: var(--rv-card);
+	box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+	color: var(--rv-body);
+	font-size: 15px;
+	line-height: 1.6;
+	transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.rv-tour__card:focus {
+	outline: none;
+}
+
+.rv-tour__count {
+	margin: 0 0 0.5em 0;
+	color: var(--rv-dim);
+	font-size: 0.72em;
+	font-weight: bold;
+	letter-spacing: 0.22em;
+	text-transform: uppercase;
+}
+
+.rv-tour__title {
+	margin: 0 0 0.5em 0;
+	padding: 0;
+	background: linear-gradient(to right, var(--rv-warm-a), var(--rv-warm-b), var(--rv-warm-c));
+	-webkit-background-clip: text;
+	background-clip: text;
+	-webkit-text-fill-color: transparent;
+	color: var(--rv-warm-b);
+	font-size: 1.3em;
+	font-weight: bold;
+	letter-spacing: 0.01em;
+	line-height: 1.25;
+}
+
+.rv-tour__body {
+	margin: 0 0 1.2em 0;
+	font-size: 0.95em;
+}
+
+.rv-tour__body p {
+	margin: 0 0 0.7em 0;
+}
+
+.rv-tour__body p:last-child {
+	margin-bottom: 0;
+}
+
+.rv-tour__body strong {
+	color: var(--rv-ink);
+}
+
+/* Progress
+------------------------------------------------------------------ */
+
+.rv-tour__dots {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.45em;
+	margin: 0 0 1.15em 0;
+	padding: 0;
+	list-style: none;
+}
+
+.rv-tour__dot {
+	width: 0.5em;
+	height: 0.5em;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.22);
+	transition: background-color 0.25s ease, transform 0.25s ease;
+}
+
+.rv-tour__dot.is-done {
+	background: rgba(255, 209, 102, 0.5);
+}
+
+.rv-tour__dot.is-current {
+	background: var(--rv-warm-b);
+	transform: scale(1.5);
+}
+
+/* Navigation
+------------------------------------------------------------------ */
+
+.rv-tour__nav {
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+}
+
+.rv-tour__spacer {
+	flex: 1 1 auto;
+}
+
+.rv-tour button {
+	appearance: none;
+	-webkit-appearance: none;
+	height: auto;
+	margin: 0;
+	padding: 0.7em 1.25em;
+	border: 1px solid var(--rv-card-edge) !important;
+	border-radius: 3em;
+	background: transparent;
+	color: var(--rv-ink) !important;
+	cursor: pointer;
+	font-family: inherit;
+	font-size: 0.75em;
+	font-weight: bold;
+	letter-spacing: 0.16em;
+	line-height: 1;
+	text-transform: uppercase;
+	white-space: nowrap;
+	transition: border-color 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.rv-tour button:after {
+	content: none !important;
+	display: none !important;
+}
+
+.rv-tour button:hover {
+	border-color: rgba(255, 255, 255, 0.4) !important;
+	background: rgba(255, 255, 255, 0.06);
+}
+
+.rv-tour button:focus-visible {
+	outline: 2px solid var(--rv-warm-c);
+	outline-offset: 2px;
+}
+
+.rv-tour button[disabled] {
+	opacity: 0.35;
+	cursor: default;
+}
+
+.rv-tour button.rv-tour__primary {
+	border-color: transparent !important;
+	background: linear-gradient(to right, var(--rv-warm-a), var(--rv-warm-b));
+	color: #2b1f47 !important;
+}
+
+.rv-tour button.rv-tour__primary:hover {
+	border-color: transparent !important;
+	background: linear-gradient(to right, var(--rv-warm-b), var(--rv-warm-c));
+}
+
+.rv-tour button.rv-tour__quiet {
+	padding-left: 0;
+	padding-right: 0.4em;
+	border-color: transparent !important;
+	color: var(--rv-dim) !important;
+	letter-spacing: 0.12em;
+}
+
+.rv-tour button.rv-tour__quiet:hover {
+	border-color: transparent !important;
+	background: transparent;
+	color: var(--rv-ink) !important;
+}
+
+.rv-tour__close {
+	position: absolute;
+	top: 0.5em;
+	right: 0.5em;
+	width: 2em;
+	height: 2em !important;
+	padding: 0 !important;
+	border-color: transparent !important;
+	border-radius: 50% !important;
+	color: var(--rv-dim) !important;
+	font-size: 1em !important;
+	letter-spacing: 0 !important;
+}
+
+.rv-tour__close:hover {
+	color: var(--rv-ink) !important;
+}
+
+/* Small screens: dock the card to the bottom as a sheet.
+------------------------------------------------------------------ */
+
+@media screen and (max-width: 736px) {
+
+	.rv-tour__card {
+		top: auto !important;
+		right: 0.75em;
+		bottom: 0.75em;
+		left: 0.75em !important;
+		width: auto;
+		max-width: none;
+		padding: 1.3em 1.25em 1.15em;
+		font-size: 14px;
+		transform: none !important;
+	}
+
+	.rv-tour__nav {
+		flex-wrap: wrap;
+	}
+
+	.rv-tour__nav button {
+		flex: 1 1 auto;
+	}
+
+	.rv-tour button.rv-tour__quiet {
+		flex: 0 0 auto;
+	}
+
+}
+
+/* Reduced motion
+------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+
+	.rv-tour,
+	.rv-tour__spot,
+	.rv-tour__card,
+	.rv-tour__veil,
+	.rv-tour__dot,
+	.rv-tour-launcher {
+		transition: none !important;
+	}
+
+	.rv-tour-launcher .rv-tour-launcher__pulse {
+		animation: none;
+	}
+
+}
