@@ -263,13 +263,25 @@
 			dots: root.querySelector('.rv-tour__dots'),
 			skip: root.querySelector('.rv-tour__skip'),
 			back: root.querySelector('.rv-tour__back'),
-			next: root.querySelector('.rv-tour__next')
+			next: root.querySelector('.rv-tour__next'),
+			blocker: root.querySelector('.rv-tour__blocker')
 		};
 
 		els.close.addEventListener('click', function () { finish(true); });
 		els.skip.addEventListener('click', function () { finish(true); });
 		els.back.addEventListener('click', function () { step(-1); });
 		els.next.addEventListener('click', function () { step(1); });
+
+		// Dismiss on a click outside the card, the same way Escape does.
+		// The blocker deliberately keeps the page un-clickable mid-tour,
+		// but without this it swallows the click silently: a visitor who
+		// clicks the nav during the auto-running first-visit tour gets no
+		// response at all. The guard keeps clicks on the card itself from
+		// bubbling into a dismiss.
+		els.blocker.addEventListener('click', function (event) {
+			if (event.target !== els.blocker) return;
+			finish(true);
+		});
 	}
 
 	function buildDots(current) {
