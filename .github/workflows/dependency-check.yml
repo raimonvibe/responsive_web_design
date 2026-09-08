@@ -1,0 +1,31 @@
+name: Dependency check
+
+on:
+  schedule:
+    # Every Monday at 06:00 UTC.
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'assets/js/**'
+      - '.github/workflows/dependency-check.yml'
+      - '.github/scripts/check-vendored-js.sh'
+
+permissions:
+  contents: read
+
+jobs:
+  vendored-js:
+    name: Vendored JavaScript
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      # Fails the run only on a known vulnerability; a merely outdated library
+      # is reported in the job summary without breaking the build.
+      - name: Check vendored JavaScript against the GitHub Advisory Database
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: bash .github/scripts/check-vendored-js.sh

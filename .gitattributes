@@ -1,0 +1,6 @@
+# Shell scripts must keep LF endings: they run on Linux CI runners, where a
+# CRLF shebang fails with "bad interpreter: /usr/bin/env bash^M".
+*.sh text eol=lf
+
+# Keep the CI config LF for the same reason.
+*.yml text eol=lf
