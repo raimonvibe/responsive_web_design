@@ -95,8 +95,13 @@
 			}, userConfig);
 
 			// Expand "target" if it's not a jQuery object already.
-				if (typeof config.target != 'jQuery')
-					config.target = $(config.target);
+			// instanceof, not typeof: typeof returns 'object' for a jQuery
+			// object and never 'jQuery', so the old test was always true.
+			// $(document).find() only selects elements that already exist,
+			// where $() would parse a string such as '<img onerror=...>'
+			// into new nodes - the XSS sink CodeQL flagged.
+				if (!(config.target instanceof jQuery))
+					config.target = $(document).find(config.target);
 
 		// Panel.
 
