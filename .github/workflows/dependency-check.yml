@@ -2,8 +2,8 @@ name: Dependency check
 
 on:
   schedule:
-    # Every Monday at 06:00 UTC.
-    - cron: '0 6 * * 1'
+    # Every Saturday at 06:00 UTC.
+    - cron: '0 6 * * 6'
   workflow_dispatch:
   push:
     branches: [main]
